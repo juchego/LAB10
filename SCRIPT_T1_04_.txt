@@ -1,0 +1,15 @@
+M<-matrix(runif(200*200,min=0,max=100), ncol=200)
+diag(M)<-0
+dim(M)
+library(igraph)
+g<-graph.adjacency(M, mode="undirected", weighted=TRUE)
+plot(g)
+M<- -M
+head(M[,1:6])
+g<-graph.adjacency(M, mode="undirected", weighted=TRUE)
+MST<-minimum.spanning.tree(g)
+plot(MST, vertex.shape="none", vertex.label.cex=.7)
+A<-get.adjacency(MST, sparse=F)
+head(A)
+write.graph(MST,file="g.gml", format="gml")
+write.csv(A,file="Adyacentes.csv")
